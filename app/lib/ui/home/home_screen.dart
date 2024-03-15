@@ -18,39 +18,38 @@ class _HomeScreenState extends State<HomeScreen> {
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          "Home Screen",
+          'Home Screen',
           style: Theme.of(context).textTheme.displayLarge,
         ),
       ),
-      body: SingleChildScrollView(
-        child: Column(
-          children: [
-            Container(
-              height: MediaQuery.sizeOf(context).height * 0.3,
+      body: Column(
+        children: [
+          Expanded(
+            child: Padding(
               padding: const EdgeInsets.all(20),
               child: NotesView(
                 data: _data,
               ),
             ),
-            Padding(
-              padding: const EdgeInsets.all(20),
-              child: ValueListenableBuilder(
-                valueListenable: _data.notes,
-                builder: (context, notes, child) => CustomCalendarView(
-                  initialDate: _data.selectedDate.value,
-                  dateLabelStyle: Theme.of(context).textTheme.titleLarge,
-                  selectedDateTextColor:
-                      Theme.of(context).colorScheme.background,
-                  selectedDateBackgroundColor:
-                      Theme.of(context).colorScheme.primary,
-                  markedBorderColor: Theme.of(context).colorScheme.primary,
-                  onDateSelect: _data.selectDate,
-                  shouldMarkDate: _data.hasNotes,
-                ),
+          ),
+          Padding(
+            padding: const EdgeInsets.all(20),
+            child: ValueListenableBuilder(
+              valueListenable: _data.notes,
+              builder: (context, notes, child) => CustomCalendarView(
+                initialDate: _data.selectedDate.value,
+                dateLabelStyle: Theme.of(context).textTheme.titleLarge,
+                selectedDateTextColor:
+                    Theme.of(context).colorScheme.background,
+                selectedDateBackgroundColor:
+                    Theme.of(context).colorScheme.primary,
+                markedBorderColor: Theme.of(context).colorScheme.primary,
+                onDateSelect: _data.selectDate,
+                shouldMarkDate: _data.hasNotes,
               ),
             ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }

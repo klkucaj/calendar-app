@@ -40,13 +40,15 @@ extension DateTimeExt on DateTime {
 
   bool sameMonth(
     DateTime other,
-  ) =>
-      other.year == year && other.month == month;
+  ) {
+    return other.year == year && other.month == month;
+  }
 
   bool sameDate(
     DateTime other,
-  ) =>
-      other.year == year && other.month == month && other.day == day;
+  ) {
+    return other.year == year && other.month == month && other.day == day;
+  }
 
   String get monthName => _monthNames[month - 1];
 

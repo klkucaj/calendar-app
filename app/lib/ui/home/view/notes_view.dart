@@ -14,33 +14,31 @@ class NotesView extends StatefulWidget {
 }
 
 class _NotesViewState extends State<NotesView> {
-  final TextEditingController _controller = TextEditingController();
-  final FocusNode _node = FocusNode();
+  final TextEditingController _textController = TextEditingController();
+  final FocusNode _focusNode = FocusNode();
 
   @override
   void initState() {
     super.initState();
-    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
-      widget.data.selectedDate.addListener(_onDateChange);
-      _node.addListener(_onNoteFocus);
-    });
+    widget.data.selectedDate.addListener(_onDateChange);
+    _focusNode.addListener(_onNoteFocus);
   }
 
   @override
   void dispose() {
     widget.data.selectedDate.removeListener(_onDateChange);
-    _node.removeListener(_onNoteFocus);
+    _focusNode.removeListener(_onNoteFocus);
     super.dispose();
   }
 
   void _onDateChange() {
-    _controller.text = widget.data.selectedDateNotes;
-    _node.unfocus();
+    _textController.text = widget.data.selectedDateNotes;
+    _focusNode.unfocus();
   }
 
   void _onNoteFocus() {
-    if (_node.hasFocus) return;
-    final String value = _controller.text;
+    if (_focusNode.hasFocus) return;
+    final String value = _textController.text;
     widget.data.updateNotes(value);
   }
 
@@ -60,8 +58,8 @@ class _NotesViewState extends State<NotesView> {
         ],
       ),
       child: TextFormField(
-        controller: _controller,
-        focusNode: _node,
+        controller: _textController,
+        focusNode: _focusNode,
         maxLines: 10,
         cursorColor: Theme.of(context).colorScheme.background,
         style: Theme.of(context).textTheme.titleLarge?.copyWith(
